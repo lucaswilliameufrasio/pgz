@@ -305,7 +305,7 @@ pub const Connection = struct {
                             }
                         } else {
                             inline for (@typeInfo(T).Struct.fields, 0..) |field, j| {
-                                if (i == j and std.mem.eql(u8, row_headers.items[i].name, field.name)) {
+                                if (i == j) {
                                     @field(row, field.name) = try encdec.decode(self.allocator, value, field.type);
                                 }
                             }
