@@ -297,17 +297,9 @@ pub const Connection = struct {
                             value = buffer.readBytes(len);
                         }
 
-                        if (@typeInfo(T).Struct.is_tuple) {
-                            inline for (@typeInfo(T).Struct.fields, 0..) |field, j| {
-                                if (i == j) {
-                                    @field(row, field.name) = try encdec.decode(self.allocator, value, field.type);
-                                }
-                            }
-                        } else {
-                            inline for (@typeInfo(T).Struct.fields, 0..) |field, j| {
-                                if (i == j) {
-                                    @field(row, field.name) = try encdec.decode(self.allocator, value, field.type);
-                                }
+                        inline for (@typeInfo(T).Struct.fields, 0..) |field, j| {
+                            if (i == j) {
+                                @field(row, field.name) = try encdec.decode(self.allocator, value, field.type);
                             }
                         }
                     }
